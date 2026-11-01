@@ -41,7 +41,7 @@
   ],
   "cobertura_diccionario_pct": 100.0,
   "columnas": 63,
-  "filas": 98717,
+  "filas": 99488,
   "ids": [
     "encounter_id",
     "patient_nbr"

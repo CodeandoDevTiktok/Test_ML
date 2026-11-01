@@ -2,121 +2,121 @@
   "acciones": {
     "A1Cresult": {
       "accion": "categoria 'No medido'",
-      "faltantes": 82053,
-      "pct": 83.119
+      "faltantes": 82782,
+      "pct": 83.208
     },
     "admission_source_id": {
-      "pct": 6.921,
-      "recodificados_a_-1": 6832
+      "pct": 6.943,
+      "recodificados_a_-1": 6907
     },
     "admission_type_id": {
-      "pct": 10.211,
-      "recodificados_a_-1": 10080
+      "pct": 10.225,
+      "recodificados_a_-1": 10173
     },
     "diag_1": {
       "accion": "categoria 'Desconocido'",
-      "faltantes": 19,
-      "pct": 0.019
+      "faltantes": 20,
+      "pct": 0.02
     },
     "diag_2": {
       "accion": "categoria 'Desconocido'",
-      "faltantes": 351,
-      "pct": 0.356
+      "faltantes": 353,
+      "pct": 0.355
     },
     "diag_3": {
       "accion": "categoria 'Desconocido'",
-      "faltantes": 1401,
-      "pct": 1.419
+      "faltantes": 1403,
+      "pct": 1.41
     },
     "discharge_disposition_id": {
-      "pct": 4.741,
+      "pct": 4.704,
       "recodificados_a_-1": 4680
     },
     "max_glu_serum": {
       "accion": "categoria 'No medido'",
-      "faltantes": 93606,
-      "pct": 94.823
+      "faltantes": 94305,
+      "pct": 94.79
     },
     "medical_specialty": {
       "accion": "categoria 'Desconocido'",
-      "faltantes": 48274,
-      "pct": 48.901
+      "faltantes": 48787,
+      "pct": 49.038
     },
     "payer_code": {
       "accion": "categoria 'Desconocido'",
-      "faltantes": 39196,
-      "pct": 39.705
+      "faltantes": 39389,
+      "pct": 39.592
     },
     "race": {
       "accion": "categoria 'Desconocido'",
-      "faltantes": 2220,
-      "pct": 2.249
+      "faltantes": 2225,
+      "pct": 2.236
     }
   },
   "atipicos_iqr": {
     "num_lab_procedures": {
       "max": 132.0,
       "min": 1.0,
-      "n": 117,
-      "pct": 0.119
+      "n": 119,
+      "pct": 0.12
     },
     "num_medications": {
       "max": 81.0,
       "min": 1.0,
-      "n": 2452,
-      "pct": 2.484
+      "n": 2467,
+      "pct": 2.48
     },
     "num_procedures": {
       "max": 6.0,
       "min": 0.0,
-      "n": 4790,
-      "pct": 4.852
+      "n": 4800,
+      "pct": 4.825
     },
     "number_diagnoses": {
       "max": 16.0,
       "min": 1.0,
-      "n": 272,
-      "pct": 0.276
+      "n": 273,
+      "pct": 0.274
     },
     "number_emergency": {
       "max": 76.0,
       "min": 0.0,
-      "n": 10963,
-      "pct": 11.105
+      "n": 11058,
+      "pct": 11.115
     },
     "number_inpatient": {
       "max": 21.0,
       "min": 0.0,
-      "n": 6732,
-      "pct": 6.819
+      "n": 6815,
+      "pct": 6.85
     },
     "number_outpatient": {
       "max": 42.0,
       "min": 0.0,
-      "n": 16264,
-      "pct": 16.475
+      "n": 16405,
+      "pct": 16.489
     },
     "time_in_hospital": {
       "max": 14.0,
       "min": 1.0,
-      "n": 2144,
-      "pct": 2.172
+      "n": 2183,
+      "pct": 2.194
     }
   },
   "atipicos_recortados": false,
   "celdas_faltantes_despues": 0,
   "faltantes_antes_pct": {
-    "A1Cresult": 83.119,
-    "diag_1": 0.019,
-    "diag_2": 0.356,
-    "diag_3": 1.419,
-    "max_glu_serum": 94.823,
-    "medical_specialty": 48.901,
-    "payer_code": 39.705,
-    "race": 2.249
+    "A1Cresult": 83.208,
+    "diag_1": 0.02,
+    "diag_2": 0.355,
+    "diag_3": 1.41,
+    "max_glu_serum": 94.79,
+    "medical_specialty": 49.038,
+    "payer_code": 39.592,
+    "race": 2.236
   },
   "faltantes_residuales_para_pipeline": {},
-  "filas": 98717,
+  "filas": 99488,
   "respuesta_plan_calidad_e2": [
     {
       "decision_e3": "categoria 'No medido'",
