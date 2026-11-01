@@ -26,16 +26,11 @@
       "filas": 3,
       "pct_crudo": 0.003,
       "tasa_lt30_en_excluidas": 0.0
-    },
-    "hospicio": {
-      "filas": 771,
-      "pct_crudo": 0.758,
-      "tasa_lt30_en_excluidas": 5.577
     }
   },
   "filas_crudo": 101766,
-  "filas_seleccionadas": 98717,
-  "pacientes_unicos": 69663,
-  "pct_conservado": 97.004,
-  "prevalencia_lt30_pct": 11.37
+  "filas_seleccionadas": 99488,
+  "pacientes_unicos": 70113,
+  "pct_conservado": 97.762,
+  "prevalencia_lt30_pct": 11.325
 }

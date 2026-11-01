@@ -14,3 +14,5 @@ Una entrada por decisión. Cada etapa de `dvc.yaml` cita su entrada en `desc`, c
 - [0009-criterios-evaluacion](0009-criterios-evaluacion.md) · Criterios de evaluación y elección del campeón (E5)
 - [0010-contrato-e2-e3](0010-contrato-e2-e3.md) · Contrato E2 → E3
 - [0011-trazabilidad-e3](0011-trazabilidad-e3.md) · Cierre trazable de E3
+- [0012-copia-legible](0012-copia-legible.md) · Vista legible de los datos versionados
+- [0013-hospicio-dentro-de-la-poblacion-elegible](0013-hospicio-dentro-de-la-poblacion-elegible.md) · Hospicio dentro de la población elegible
