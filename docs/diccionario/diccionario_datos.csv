@@ -1,0 +1,64 @@
+columna,rol,tipo,origen,descripcion,pct_faltante,cardinalidad,ejemplo
+encounter_id,id,int64,cruda,Identificador del episodio (sujeto de predicción),0.0,98717,12522
+patient_nbr,id,int64,cruda,Identificador del paciente; solo para agrupar particiones,0.0,69663,48330783
+time_in_hospital,predictora,numerica,cruda,Días de estancia del episodio,0.0,14,13.0
+num_lab_procedures,predictora,numerica,cruda,Número de pruebas de laboratorio,0.0,118,68.0
+num_procedures,predictora,numerica,cruda,Número de procedimientos (no laboratorio),0.0,7,2.0
+num_medications,predictora,numerica,cruda,Número de medicamentos distintos administrados,0.0,75,28.0
+number_outpatient,predictora,numerica,cruda,Visitas ambulatorias en el año previo,0.0,39,0.0
+number_emergency,predictora,numerica,cruda,Visitas a emergencia en el año previo,0.0,33,0.0
+number_inpatient,predictora,numerica,cruda,Hospitalizaciones en el año previo,0.0,21,0.0
+number_diagnoses,predictora,numerica,cruda,Número de diagnósticos registrados,0.0,16,8.0
+edad_num,predictora,numerica,derivada,Punto medio del tramo de edad,0.0,10,85.0
+visitas_previas_total,predictora,numerica,derivada,Suma de visitas previas (ambulatorio+emergencia+hospital),0.0,47,0.0
+hosp_previas_4mas,predictora,numerica,derivada,1 si number_inpatient >= umbral clínico (params),0.0,2,0.0
+n_meds_activos,predictora,numerica,derivada,Medicamentos para diabetes con valor distinto de 'No',0.0,7,2.0
+n_meds_cambiados,predictora,numerica,derivada,Medicamentos con dosis 'Up' o 'Down',0.0,5,0.0
+a1c_medido,predictora,numerica,derivada,1 si se midió HbA1c,0.0,2,0.0
+glu_medido,predictora,numerica,derivada,1 si se midió glucosa sérica,0.0,2,0.0
+diag_principal_diabetes,predictora,numerica,derivada,1 si el diagnóstico principal es 250.xx,0.0,2,0.0
+gender,predictora,string,cruda,Sexo registrado,0.0,2,Female
+payer_code,predictora,string,cruda,Pagador; 'Desconocido' si faltaba,0.0,18,Desconocido
+max_glu_serum,predictora,string,cruda,Glucosa sérica máxima; 'No medido' si no se midió,0.0,4,No medido
+A1Cresult,predictora,string,cruda,Resultado HbA1c; 'No medido' si no se midió,0.0,4,No medido
+metformin,predictora,string,cruda (medicamento),Estado del medicamento metformin (No/Steady/Up/Down),0.0,4,No
+repaglinide,predictora,string,cruda (medicamento),Estado del medicamento repaglinide (No/Steady/Up/Down),0.0,4,No
+nateglinide,predictora,string,cruda (medicamento),Estado del medicamento nateglinide (No/Steady/Up/Down),0.0,4,No
+chlorpropamide,predictora,string,cruda (medicamento),Estado del medicamento chlorpropamide (No/Steady/Up/Down),0.0,4,No
+glimepiride,predictora,string,cruda (medicamento),Estado del medicamento glimepiride (No/Steady/Up/Down),0.0,4,No
+acetohexamide,predictora,string,cruda (medicamento),Estado del medicamento acetohexamide (No/Steady/Up/Down),0.0,2,No
+glipizide,predictora,string,cruda (medicamento),Estado del medicamento glipizide (No/Steady/Up/Down),0.0,4,Steady
+glyburide,predictora,string,cruda (medicamento),Estado del medicamento glyburide (No/Steady/Up/Down),0.0,4,No
+tolbutamide,predictora,string,cruda (medicamento),Estado del medicamento tolbutamide (No/Steady/Up/Down),0.0,2,No
+pioglitazone,predictora,string,cruda (medicamento),Estado del medicamento pioglitazone (No/Steady/Up/Down),0.0,4,No
+rosiglitazone,predictora,string,cruda (medicamento),Estado del medicamento rosiglitazone (No/Steady/Up/Down),0.0,4,No
+acarbose,predictora,string,cruda (medicamento),Estado del medicamento acarbose (No/Steady/Up/Down),0.0,4,No
+miglitol,predictora,string,cruda (medicamento),Estado del medicamento miglitol (No/Steady/Up/Down),0.0,4,No
+troglitazone,predictora,string,cruda (medicamento),Estado del medicamento troglitazone (No/Steady/Up/Down),0.0,2,No
+tolazamide,predictora,string,cruda (medicamento),Estado del medicamento tolazamide (No/Steady/Up/Down),0.0,3,No
+insulin,predictora,string,cruda (medicamento),Estado del medicamento insulin (No/Steady/Up/Down),0.0,4,Steady
+glyburide-metformin,predictora,string,cruda (medicamento),Estado del medicamento glyburide-metformin (No/Steady/Up/Down),0.0,4,No
+glipizide-metformin,predictora,string,cruda (medicamento),Estado del medicamento glipizide-metformin (No/Steady/Up/Down),0.0,2,No
+glimepiride-pioglitazone,predictora,string,cruda (medicamento),Estado del medicamento glimepiride-pioglitazone (No/Steady/Up/Down),0.0,2,No
+metformin-rosiglitazone,predictora,string,cruda (medicamento),Estado del medicamento metformin-rosiglitazone (No/Steady/Up/Down),0.0,2,No
+metformin-pioglitazone,predictora,string,cruda (medicamento),Estado del medicamento metformin-pioglitazone (No/Steady/Up/Down),0.0,2,No
+change,predictora,string,cruda,Hubo cambio de medicación para diabetes,0.0,2,Ch
+diabetesMed,predictora,string,cruda,Se prescribió medicación para diabetes,0.0,2,Yes
+diag_1_grupo,predictora,string,derivada,Grupo clínico del diagnóstico principal,0.0,22,circulatorio
+diag_2_grupo,predictora,string,derivada,Grupo clínico del diagnóstico secundario,0.0,22,circulatorio
+diag_3_grupo,predictora,string,derivada,Grupo clínico del diagnóstico terciario,0.0,22,infecciosas
+especialidad_grupo,predictora,string,derivada,Top-N especialidades; resto 'Otra',0.0,12,Desconocido
+admission_type_grupo,predictora,string,derivada,Tipo de admisión agrupado (IDS_mapping),0.0,6,urgent
+discharge_disposition_grupo,predictora,string,derivada,Destino de alta agrupado; predictor solo si params lo habilita,0.0,7,domicilio
+admission_source_grupo,predictora,string,derivada,Fuente de admisión agrupada (IDS_mapping),0.0,5,traslado
+race,auditoria,string,cruda,Raza registrada; SOLO auditoría de equidad (E1),0.0,6,Caucasian
+grupo_edad,auditoria,string,derivada,Tramo amplio de edad para auditoría,0.0,4,80+
+age,referencia,string,cruda,Tramo de edad original (10 años),0.0,10,[80-90)
+admission_type_id,referencia,int64,cruda,Código original de tipo de admisión,0.0,6,2
+discharge_disposition_id,referencia,int64,cruda,Código original de destino de alta,0.0,19,1
+admission_source_id,referencia,int64,cruda,Código original de fuente de admisión,0.0,15,4
+medical_specialty,referencia,string,cruda,Especialidad original; 'Desconocido' si faltaba,0.0,73,Desconocido
+diag_1,referencia,string,cruda,CIE-9 principal (referencia),0.0,715,398
+diag_2,referencia,string,cruda,CIE-9 secundario (referencia),0.0,748,427
+diag_3,referencia,string,cruda,CIE-9 terciario (referencia),0.0,786,38
+reingreso_30d,objetivo,int64,derivada,OBJETIVO: 1 si hubo reingreso antes de 30 días,0.0,2,0

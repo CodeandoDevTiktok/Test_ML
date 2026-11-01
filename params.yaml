@@ -24,6 +24,7 @@ seleccion:
   disposiciones_alta_voluntaria: [7]
   # gender = Unknown/Invalid (3 filas en E2): dato inválido
   excluir_genero_invalido: true
+  valores_genero_invalido: ["Unknown/Invalid"]
   # Columnas que NO entran como predictoras
   columnas_descartadas:
     - weight            # 96,86 % faltante (E2) > umbral Kelleher 50 %
@@ -35,6 +36,9 @@ seleccion:
 # --- 3.2 Limpiar · decisiones/0003-faltantes --------------------------------
 limpieza:
   token_faltante: "Desconocido"
+  # Laboratorio: la ausencia significa «no se midió» (decisiones/0003)
+  token_no_medido: "No medido"
+  columnas_no_medido: [max_glu_serum, A1Cresult]
   # Kelleher: >50 % faltante => NO imputar; se crea categoría explícita
   umbral_no_imputar: 0.50
   # max_glu_serum / A1Cresult: la ausencia significa "no medido" (señal de proceso)
@@ -51,6 +55,8 @@ limpieza:
 construccion:
   # Señal clínica de la consulta (E1): >=4 hospitalizaciones previas en el año
   umbral_hospitalizaciones_previas: 4
+  # Tramos de grupo_edad (auditoría de equidad, E5): <40, 40-59, 60-79, 80+
+  cortes_grupo_edad: [40, 60, 80]
   agrupar_diagnosticos: true          # CIE-9 -> grupos clínicos (src/p09/datos/cie9.py)
   top_especialidades: 10              # el resto -> "Otra"
 

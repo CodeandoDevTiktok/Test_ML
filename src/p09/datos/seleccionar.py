@@ -34,7 +34,7 @@ def main() -> None:
     if s["excluir_alta_voluntaria"]:
         reglas["alta_voluntaria"] = disp.isin(s["disposiciones_alta_voluntaria"])
     if s["excluir_genero_invalido"]:
-        reglas["genero_invalido"] = df["gender"].eq("Unknown/Invalid")
+        reglas["genero_invalido"] = df["gender"].isin(s["valores_genero_invalido"])
 
     excluir = None
     for nombre, mascara in reglas.items():

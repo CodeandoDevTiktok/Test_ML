@@ -32,14 +32,14 @@ def _edad_media(tramo: str) -> float:
     return (float(a) + float(b)) / 2
 
 
-def _grupo_edad(e: float) -> str:
-    if e < 40:
-        return "<40"
-    if e < 60:
-        return "40-59"
-    if e < 80:
-        return "60-79"
-    return "80+"
+def _grupo_edad(e: float, cortes: list[int]) -> str:
+    """Tramos a partir de construccion.cortes_grupo_edad: [40, 60, 80] -> <40, 40-59, 60-79, 80+."""
+    if e < cortes[0]:
+        return f"<{cortes[0]}"
+    for ini, fin in zip(cortes, cortes[1:]):
+        if e < fin:
+            return f"{ini}-{fin - 1}"
+    return f"{cortes[-1]}+"
 
 
 def main() -> None:
@@ -54,7 +54,7 @@ def main() -> None:
 
     # Edad
     df["edad_num"] = df["age"].astype(str).map(_edad_media)
-    df["grupo_edad"] = df["edad_num"].map(_grupo_edad).astype("string")
+    df["grupo_edad"] = df["edad_num"].map(lambda e: _grupo_edad(e, c["cortes_grupo_edad"])).astype("string")
     nuevas += ["edad_num", "grupo_edad"]
 
     # Utilización previa

@@ -1,0 +1,254 @@
+{
+  "acciones": {
+    "A1Cresult": {
+      "accion": "categoria 'No medido'",
+      "faltantes": 82053,
+      "pct": 83.119
+    },
+    "admission_source_id": {
+      "pct": 6.921,
+      "recodificados_a_-1": 6832
+    },
+    "admission_type_id": {
+      "pct": 10.211,
+      "recodificados_a_-1": 10080
+    },
+    "diag_1": {
+      "accion": "categoria 'Desconocido'",
+      "faltantes": 19,
+      "pct": 0.019
+    },
+    "diag_2": {
+      "accion": "categoria 'Desconocido'",
+      "faltantes": 351,
+      "pct": 0.356
+    },
+    "diag_3": {
+      "accion": "categoria 'Desconocido'",
+      "faltantes": 1401,
+      "pct": 1.419
+    },
+    "discharge_disposition_id": {
+      "pct": 4.741,
+      "recodificados_a_-1": 4680
+    },
+    "max_glu_serum": {
+      "accion": "categoria 'No medido'",
+      "faltantes": 93606,
+      "pct": 94.823
+    },
+    "medical_specialty": {
+      "accion": "categoria 'Desconocido'",
+      "faltantes": 48274,
+      "pct": 48.901
+    },
+    "payer_code": {
+      "accion": "categoria 'Desconocido'",
+      "faltantes": 39196,
+      "pct": 39.705
+    },
+    "race": {
+      "accion": "categoria 'Desconocido'",
+      "faltantes": 2220,
+      "pct": 2.249
+    }
+  },
+  "atipicos_iqr": {
+    "num_lab_procedures": {
+      "max": 132.0,
+      "min": 1.0,
+      "n": 117,
+      "pct": 0.119
+    },
+    "num_medications": {
+      "max": 81.0,
+      "min": 1.0,
+      "n": 2452,
+      "pct": 2.484
+    },
+    "num_procedures": {
+      "max": 6.0,
+      "min": 0.0,
+      "n": 4790,
+      "pct": 4.852
+    },
+    "number_diagnoses": {
+      "max": 16.0,
+      "min": 1.0,
+      "n": 272,
+      "pct": 0.276
+    },
+    "number_emergency": {
+      "max": 76.0,
+      "min": 0.0,
+      "n": 10963,
+      "pct": 11.105
+    },
+    "number_inpatient": {
+      "max": 21.0,
+      "min": 0.0,
+      "n": 6732,
+      "pct": 6.819
+    },
+    "number_outpatient": {
+      "max": 42.0,
+      "min": 0.0,
+      "n": 16264,
+      "pct": 16.475
+    },
+    "time_in_hospital": {
+      "max": 14.0,
+      "min": 1.0,
+      "n": 2144,
+      "pct": 2.172
+    }
+  },
+  "atipicos_recortados": false,
+  "celdas_faltantes_despues": 0,
+  "faltantes_antes_pct": {
+    "A1Cresult": 83.119,
+    "diag_1": 0.019,
+    "diag_2": 0.356,
+    "diag_3": 1.419,
+    "max_glu_serum": 94.823,
+    "medical_specialty": 48.901,
+    "payer_code": 39.705,
+    "race": 2.249
+  },
+  "faltantes_residuales_para_pipeline": {},
+  "filas": 98717,
+  "respuesta_plan_calidad_e2": [
+    {
+      "decision_e3": "categoria 'No medido'",
+      "pct_faltante_e2": 83.277,
+      "pct_faltante_tras_e3": 0.0,
+      "variable": "A1Cresult"
+    },
+    {
+      "decision_e3": "categoria 'Desconocido'",
+      "pct_faltante_e2": 0.021,
+      "pct_faltante_tras_e3": 0.0,
+      "variable": "diag_1"
+    },
+    {
+      "decision_e3": "categoria 'Desconocido'",
+      "pct_faltante_e2": 0.352,
+      "pct_faltante_tras_e3": 0.0,
+      "variable": "diag_2"
+    },
+    {
+      "decision_e3": "categoria 'Desconocido'",
+      "pct_faltante_e2": 1.398,
+      "pct_faltante_tras_e3": 0.0,
+      "variable": "diag_3"
+    },
+    {
+      "decision_e3": "categoria 'No medido'",
+      "pct_faltante_e2": 94.747,
+      "pct_faltante_tras_e3": 0.0,
+      "variable": "max_glu_serum"
+    },
+    {
+      "decision_e3": "categoria 'Desconocido'",
+      "pct_faltante_e2": 49.082,
+      "pct_faltante_tras_e3": 0.0,
+      "variable": "medical_specialty"
+    },
+    {
+      "decision_e3": "categoria 'Desconocido'",
+      "pct_faltante_e2": 39.557,
+      "pct_faltante_tras_e3": 0.0,
+      "variable": "payer_code"
+    },
+    {
+      "decision_e3": "categoria 'Desconocido'",
+      "pct_faltante_e2": 2.234,
+      "pct_faltante_tras_e3": 0.0,
+      "variable": "race"
+    },
+    {
+      "decision_e3": "descartada en 3.1",
+      "pct_faltante_e2": 96.858,
+      "pct_faltante_tras_e3": null,
+      "variable": "weight"
+    },
+    {
+      "decision_e3": "recodificado a -1 (desconocido)",
+      "pct_faltante_e2": 0.123,
+      "pct_faltante_tras_e3": null,
+      "variable": "admission_source_id=9"
+    },
+    {
+      "decision_e3": "recodificado a -1 (desconocido)",
+      "pct_faltante_e2": 6.663,
+      "pct_faltante_tras_e3": null,
+      "variable": "admission_source_id=17"
+    },
+    {
+      "decision_e3": "excluido en 3.1",
+      "pct_faltante_e2": 0.158,
+      "pct_faltante_tras_e3": null,
+      "variable": "admission_source_id=20"
+    },
+    {
+      "decision_e3": "recodificado a -1 (desconocido)",
+      "pct_faltante_e2": 4.702,
+      "pct_faltante_tras_e3": null,
+      "variable": "admission_type_id=5"
+    },
+    {
+      "decision_e3": "recodificado a -1 (desconocido)",
+      "pct_faltante_e2": 5.199,
+      "pct_faltante_tras_e3": null,
+      "variable": "admission_type_id=6"
+    },
+    {
+      "decision_e3": "recodificado a -1 (desconocido)",
+      "pct_faltante_e2": 0.314,
+      "pct_faltante_tras_e3": null,
+      "variable": "admission_type_id=8"
+    },
+    {
+      "decision_e3": "excluido en 3.1",
+      "pct_faltante_e2": 1.614,
+      "pct_faltante_tras_e3": null,
+      "variable": "discharge_disposition_id=11"
+    },
+    {
+      "decision_e3": "recodificado a -1 (desconocido)",
+      "pct_faltante_e2": 3.627,
+      "pct_faltante_tras_e3": null,
+      "variable": "discharge_disposition_id=18"
+    },
+    {
+      "decision_e3": "excluido en 3.1",
+      "pct_faltante_e2": 0.008,
+      "pct_faltante_tras_e3": null,
+      "variable": "discharge_disposition_id=19"
+    },
+    {
+      "decision_e3": "excluido en 3.1",
+      "pct_faltante_e2": 0.002,
+      "pct_faltante_tras_e3": null,
+      "variable": "discharge_disposition_id=20"
+    },
+    {
+      "decision_e3": "recodificado a -1 (desconocido)",
+      "pct_faltante_e2": 0.972,
+      "pct_faltante_tras_e3": null,
+      "variable": "discharge_disposition_id=25"
+    },
+    {
+      "decision_e3": "descartada en 3.1 (constante)",
+      "pct_faltante_e2": 0,
+      "pct_faltante_tras_e3": null,
+      "variable": "examide"
+    },
+    {
+      "decision_e3": "descartada en 3.1 (constante)",
+      "pct_faltante_e2": 0,
+      "pct_faltante_tras_e3": null,
+      "variable": "citoglipton"
+    }
+  ]
+}
