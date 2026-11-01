@@ -17,7 +17,7 @@ seleccion:
   # discharge_disposition_id: 11, 19, 20, 21 = fallecimiento (E1 salida 9, E2)
   disposiciones_fallecimiento: [11, 19, 20, 21]
   # 13, 14 = hospicio. E1 lo deja "a revisar"; se excluye por no ser accionable.
-  excluir_hospicio: true
+  excluir_hospicio: false
   disposiciones_hospicio: [13, 14]
   # 7 = alta voluntaria (AMA). E1: población distinta; se separa.
   excluir_alta_voluntaria: true

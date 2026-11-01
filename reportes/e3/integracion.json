@@ -3,23 +3,23 @@
   "cobertura_mapping": {
     "admission_source_id": {
       "categorias": {
-        "desconocido": 6832,
-        "emergencia": 55364,
+        "desconocido": 6907,
+        "emergencia": 55877,
         "otro": 20,
-        "referencia": 30337,
-        "traslado": 6164
+        "referencia": 30493,
+        "traslado": 6191
       },
       "codigos_en_mapping": 25,
       "pct_filas_mapeadas": 100.0
     },
     "admission_type_id": {
       "categorias": {
-        "desconocido": 10080,
-        "elective": 18619,
-        "emergency": 51952,
+        "desconocido": 10173,
+        "elective": 18690,
+        "emergency": 52465,
         "newborn": 10,
         "trauma": 18,
-        "urgent": 18038
+        "urgent": 18132
       },
       "codigos_en_mapping": 8,
       "pct_filas_mapeadas": 100.0
@@ -30,7 +30,7 @@
         "desconocido": 4680,
         "domicilio": 60232,
         "domicilio_con_servicio": 13010,
-        "otro": 30,
+        "otro": 801,
         "rehabilitacion": 1992,
         "traslado": 3956
       },
@@ -38,5 +38,5 @@
       "pct_filas_mapeadas": 100.0
     }
   },
-  "filas": 98717
+  "filas": 99488
 }

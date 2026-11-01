@@ -1,6 +1,6 @@
 columna,rol,tipo,origen,descripcion,pct_faltante,cardinalidad,ejemplo
-encounter_id,id,int64,cruda,Identificador del episodio (sujeto de predicción),0.0,98717,12522
-patient_nbr,id,int64,cruda,Identificador del paciente; solo para agrupar particiones,0.0,69663,48330783
+encounter_id,id,int64,cruda,Identificador del episodio (sujeto de predicción),0.0,99488,12522
+patient_nbr,id,int64,cruda,Identificador del paciente; solo para agrupar particiones,0.0,70113,48330783
 time_in_hospital,predictora,numerica,cruda,Días de estancia del episodio,0.0,14,13.0
 num_lab_procedures,predictora,numerica,cruda,Número de pruebas de laboratorio,0.0,118,68.0
 num_procedures,predictora,numerica,cruda,Número de procedimientos (no laboratorio),0.0,7,2.0
@@ -55,10 +55,10 @@ race,auditoria,string,cruda,Raza registrada; SOLO auditoría de equidad (E1),0.0
 grupo_edad,auditoria,string,derivada,Tramo amplio de edad para auditoría,0.0,4,80+
 age,referencia,string,cruda,Tramo de edad original (10 años),0.0,10,[80-90)
 admission_type_id,referencia,int64,cruda,Código original de tipo de admisión,0.0,6,2
-discharge_disposition_id,referencia,int64,cruda,Código original de destino de alta,0.0,19,1
+discharge_disposition_id,referencia,int64,cruda,Código original de destino de alta,0.0,21,1
 admission_source_id,referencia,int64,cruda,Código original de fuente de admisión,0.0,15,4
 medical_specialty,referencia,string,cruda,Especialidad original; 'Desconocido' si faltaba,0.0,73,Desconocido
 diag_1,referencia,string,cruda,CIE-9 principal (referencia),0.0,715,398
 diag_2,referencia,string,cruda,CIE-9 secundario (referencia),0.0,748,427
-diag_3,referencia,string,cruda,CIE-9 terciario (referencia),0.0,786,38
+diag_3,referencia,string,cruda,CIE-9 terciario (referencia),0.0,787,38
 reingreso_30d,objetivo,int64,derivada,OBJETIVO: 1 si hubo reingreso antes de 30 días,0.0,2,0
