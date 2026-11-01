@@ -1,0 +1,268 @@
+schema: '2.0'
+stages:
+  seleccionar:
+    cmd: python -m p09.datos.seleccionar
+    deps:
+    - path: datos/crudo
+      hash: md5
+      md5: 5127263861ce9581c16c67f40d3c3d70.dir
+      size: 2743070
+      nfiles: 5
+    - path: reportes/e2/descripcion.json
+      hash: md5
+      md5: 442cc2bbe3f574defb7cddcd1ba5199a
+      size: 955
+    - path: src/p09/datos/comun.py
+      hash: md5
+      md5: 758c15ae06a79961739d6ae29944d24d
+      size: 2594
+    - path: src/p09/datos/seleccionar.py
+      hash: md5
+      md5: dec904e6b9c9b96b9250d984f6b8eb6d
+      size: 2982
+    params:
+      params.yaml:
+        datos:
+          archivo_crudo: datos/crudo/diabetic_data.parquet
+          archivo_mapping: datos/crudo/IDS_mapping.csv
+          id_episodio: encounter_id
+          id_paciente: patient_nbr
+          columna_resultado: readmitted
+          valor_positivo: <30
+        seleccion:
+          disposiciones_fallecimiento:
+          - 11
+          - 19
+          - 20
+          - 21
+          excluir_hospicio: true
+          disposiciones_hospicio:
+          - 13
+          - 14
+          excluir_alta_voluntaria: true
+          disposiciones_alta_voluntaria:
+          - 7
+          excluir_genero_invalido: true
+          valores_genero_invalido:
+          - Unknown/Invalid
+          columnas_descartadas:
+          - weight
+          - examide
+          - citoglipton
+          columnas_auditoria:
+          - race
+    outs:
+    - path: datos/intermedio/seleccionado.parquet
+      hash: md5
+      md5: 42425fb48d43457743642101b0dc4b5a
+      size: 2632520
+    - path: reportes/e3/seleccion.json
+      hash: md5
+      md5: f969f08d35214d388589dc885d01016f
+      size: 881
+  limpiar:
+    cmd: python -m p09.datos.limpiar
+    deps:
+    - path: datos/intermedio/seleccionado.parquet
+      hash: md5
+      md5: 42425fb48d43457743642101b0dc4b5a
+      size: 2632520
+    - path: reportes/e2/calidad.json
+      hash: md5
+      md5: 9ffbc9351c2f080392f9a528aead9806
+      size: 3475
+    - path: src/p09/datos/comun.py
+      hash: md5
+      md5: 758c15ae06a79961739d6ae29944d24d
+      size: 2594
+    - path: src/p09/datos/limpiar.py
+      hash: md5
+      md5: 21a492447d40bd2b14f2ebd344b04f39
+      size: 5525
+    params:
+      params.yaml:
+        limpieza:
+          token_faltante: Desconocido
+          token_no_medido: No medido
+          columnas_no_medido:
+          - max_glu_serum
+          - A1Cresult
+          umbral_no_imputar: 0.5
+          columnas_ausencia_informativa:
+          - max_glu_serum
+          - A1Cresult
+          - medical_specialty
+          - payer_code
+          admission_type_desconocido:
+          - 5
+          - 6
+          - 8
+          admission_source_desconocido:
+          - 9
+          - 15
+          - 17
+          - 20
+          - 21
+          discharge_desconocido:
+          - 18
+          - 25
+          - 26
+          regla_atipicos_iqr: 1.5
+          recortar_atipicos: false
+        seleccion.columnas_auditoria:
+        - race
+        seleccion.columnas_descartadas:
+        - weight
+        - examide
+        - citoglipton
+        seleccion.disposiciones_fallecimiento:
+        - 11
+        - 19
+        - 20
+        - 21
+    outs:
+    - path: datos/intermedio/limpio.parquet
+      hash: md5
+      md5: f0ac822656296ed28e6891c474cb7082
+      size: 2646636
+    - path: reportes/e3/limpieza.json
+      hash: md5
+      md5: f8aae7d320c509ef56cf230e3a9fea83
+      size: 6129
+  construir:
+    cmd: python -m p09.datos.construir
+    deps:
+    - path: datos/intermedio/limpio.parquet
+      hash: md5
+      md5: f0ac822656296ed28e6891c474cb7082
+      size: 2646636
+    - path: src/p09/datos/cie9.py
+      hash: md5
+      md5: 77e0fd1718c10651320e78baafa662fb
+      size: 2298
+    - path: src/p09/datos/comun.py
+      hash: md5
+      md5: 758c15ae06a79961739d6ae29944d24d
+      size: 2594
+    - path: src/p09/datos/construir.py
+      hash: md5
+      md5: 7faef180a6e353417d1d9a4069abb08a
+      size: 4846
+    params:
+      params.yaml:
+        construccion:
+          umbral_hospitalizaciones_previas: 4
+          cortes_grupo_edad:
+          - 40
+          - 60
+          - 80
+          agrupar_diagnosticos: true
+          top_especialidades: 10
+        datos.columna_resultado: readmitted
+        datos.valor_positivo: <30
+    outs:
+    - path: datos/intermedio/construido.parquet
+      hash: md5
+      md5: 2a1fff6a2447aa12b2260e2f000d33fe
+      size: 3120005
+    - path: reportes/e3/construccion.json
+      hash: md5
+      md5: 01361ea90fd16484aec198930720eee4
+      size: 1443
+  integrar:
+    cmd: python -m p09.datos.integrar
+    deps:
+    - path: datos/crudo
+      hash: md5
+      md5: 5127263861ce9581c16c67f40d3c3d70.dir
+      size: 2743070
+      nfiles: 5
+    - path: datos/intermedio/construido.parquet
+      hash: md5
+      md5: 2a1fff6a2447aa12b2260e2f000d33fe
+      size: 3120005
+    - path: src/p09/datos/comun.py
+      hash: md5
+      md5: 758c15ae06a79961739d6ae29944d24d
+      size: 2594
+    - path: src/p09/datos/integrar.py
+      hash: md5
+      md5: dc0e360fe612f0ee0f688768f338feeb
+      size: 3595
+    params:
+      params.yaml:
+        datos.archivo_mapping: datos/crudo/IDS_mapping.csv
+        integracion:
+          usar_descripciones_mapping: true
+          agregados_por_paciente: false
+    outs:
+    - path: datos/intermedio/integrado.parquet
+      hash: md5
+      md5: f5f32dde564faa2b0f63899e5e699e13
+      size: 3231210
+    - path: reportes/e3/integracion.json
+      hash: md5
+      md5: 4dbb971ba7d9763c389d15e80e4c7c52
+      size: 982
+  formatear:
+    cmd: python -m p09.datos.formatear
+    deps:
+    - path: datos/intermedio/integrado.parquet
+      hash: md5
+      md5: f5f32dde564faa2b0f63899e5e699e13
+      size: 3231210
+    - path: src/p09/datos/comun.py
+      hash: md5
+      md5: 758c15ae06a79961739d6ae29944d24d
+      size: 2594
+    - path: src/p09/datos/formatear.py
+      hash: md5
+      md5: 1cf80345ead680135363041fd9e94242
+      size: 7004
+    params:
+      params.yaml:
+        seleccion.columnas_auditoria:
+        - race
+    outs:
+    - path: datos/final/tabla_modelado.parquet
+      hash: md5
+      md5: 2d1fddc0b6f935f0d6a26a275441a4fc
+      size: 3228233
+    - path: docs/diccionario/diccionario_datos.csv
+      hash: md5
+      md5: 88643c473e05c29e21972d561f755789
+      size: 6478
+    - path: reportes/e3/esquema.json
+      hash: md5
+      md5: 7ae8cf98a44a4ed3833f540551b46fad
+      size: 1540
+  particionar:
+    cmd: python -m p09.datos.particionar
+    deps:
+    - path: datos/final/tabla_modelado.parquet
+      hash: md5
+      md5: 2d1fddc0b6f935f0d6a26a275441a4fc
+      size: 3228233
+    - path: src/p09/datos/particionar.py
+      hash: md5
+      md5: f4870df5114de465c4ad20147bab4ca9
+      size: 1771
+    params:
+      params.yaml:
+        particion:
+          proporcion_prueba: 0.2
+          semilla: 42
+          agrupar_por: patient_nbr
+    outs:
+    - path: datos/particion/test.parquet
+      hash: md5
+      md5: cf52b9481181d0b5c6a5c2f943987c80
+      size: 684659
+    - path: datos/particion/train.parquet
+      hash: md5
+      md5: 5fac2bc0425cc9ac5a8d95faf0ff8b25
+      size: 2593209
+    - path: reportes/e3/particion.json
+      hash: md5
+      md5: 62ddce39b07230b792f10275d20ad69b
+      size: 214

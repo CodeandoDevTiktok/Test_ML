@@ -10,8 +10,8 @@
 #  Acepta HTTPS (https://github.com/ORG/REPO.git) o SSH (git@github.com:ORG/REPO.git)
 # -----------------------------------------------------------------------------
 github:
-  url: "https://github.com/CodeandoDevTiktok/Proyecto_Machine_Learning.git"
-  rama: "master"
+  url: "https://github.com/CodeandoDevTiktok/Test_ML.git"
+  rama: "main"
 
 proyecto:
   codigo: "P09"

@@ -15,7 +15,9 @@ PATRONES = [
     (re.compile(r'^(\s*GITHUB_SUBCARPETA\s*=\s*)"[^"]*"', re.M), r'\1""'),
     (re.compile(r"^(\s*(?:MINIO_ACCESS_KEY|MINIO_SECRET_KEY|GITHUB_TOKEN)\s*=\s*)(['\"]).*?\2", re.M), r"\1''"),
 ]
-PROHIBIDO = re.compile(r"github_pat_[A-Za-z0-9_]{20,}|ghp_[A-Za-z0-9]{20,}|utec_2026")
+PROHIBIDO = re.compile(  # patrones genéricos: sin secretos literales
+    r"github_pat_[A-Za-z0-9_]{20,}|ghp_[A-Za-z0-9]{20,}|"
+    r"(?:MINIO_ACCESS_KEY|MINIO_SECRET_KEY|GITHUB_TOKEN)\s*=\s*'[^']+'")
 
 problemas = 0
 for nb_path in sorted(Path("notebooks").glob("E*.ipynb")):

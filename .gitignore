@@ -5,3 +5,7 @@ mlruns/
 mlartifacts/
 .env
 .venv/
+*-key.json
+*service-account*.json
+*accessKeys*.csv
+optuna.db

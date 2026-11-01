@@ -249,7 +249,7 @@ def t_verificar(_):
     """Criterio 1 (S03): rehacer forzando y comprobar que la anotación no cambia."""
     sh("dvc", "pull", check=False)
     sh("dvc", "repro", "--force")
-    r = sh("git", "diff", "--exit-code", "dvc.lock", check=False)
+    r = sh("git", "diff", "--exit-code", "HEAD", "--", "dvc.lock", check=False)
     print("✓ reproducible: dvc.lock idéntico" if r.returncode == 0 else "✗ dvc.lock cambió: NO reproducible")
     raise SystemExit(r.returncode)
 
