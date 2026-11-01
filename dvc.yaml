@@ -1,0 +1,109 @@
+# dvc.yaml — la receta de la Etapa 3 (escrita a mano y versionada).
+# E2 lo publica el notebook E2 (contrato en reportes/e2/, versionado en git).
+# E3 (seleccionar..particionar) depende de ese contrato. Cada etapa: tarea CRISP-DM que resuelve · entrada de la bitácora que la justifica.
+# Ejecutar todo:      dvc repro            Ver grafo:  dvc dag
+# Comprobar al día:   dvc status           Métricas:   dvc metrics show
+
+stages:
+  seleccionar:
+    desc: "3.1 seleccionar · docs/decisiones/0001-elegibilidad.md + 0002-columnas.md"
+    cmd: python -m p09.datos.seleccionar
+    deps:
+      - src/p09/datos/seleccionar.py
+      - src/p09/datos/comun.py
+      - datos/crudo
+      - reportes/e2/descripcion.json     # contrato del notebook E2 (md5 y filas)
+    params:
+      - datos
+      - seleccion
+    outs:
+      - datos/intermedio/seleccionado.parquet
+    metrics:
+      - reportes/e3/seleccion.json:
+          cache: false
+
+  limpiar:
+    desc: "3.2 limpiar · docs/decisiones/0003-faltantes.md"
+    cmd: python -m p09.datos.limpiar
+    deps:
+      - src/p09/datos/limpiar.py
+      - src/p09/datos/comun.py
+      - datos/intermedio/seleccionado.parquet
+      - reportes/e2/calidad.json         # el informe de limpieza responde a este
+    params:
+      - limpieza
+      - seleccion.columnas_auditoria
+      - seleccion.columnas_descartadas
+      - seleccion.disposiciones_fallecimiento
+    outs:
+      - datos/intermedio/limpio.parquet
+    metrics:
+      - reportes/e3/limpieza.json:
+          cache: false
+
+  construir:
+    desc: "3.3 construir · docs/decisiones/0004-variables-derivadas.md"
+    cmd: python -m p09.datos.construir
+    deps:
+      - src/p09/datos/construir.py
+      - src/p09/datos/cie9.py
+      - src/p09/datos/comun.py
+      - datos/intermedio/limpio.parquet
+    params:
+      - construccion
+      - datos.columna_resultado
+      - datos.valor_positivo
+    outs:
+      - datos/intermedio/construido.parquet
+    metrics:
+      - reportes/e3/construccion.json:
+          cache: false
+
+  integrar:
+    desc: "3.4 integrar · docs/decisiones/0005-integracion.md"
+    cmd: python -m p09.datos.integrar
+    deps:
+      - src/p09/datos/integrar.py
+      - src/p09/datos/comun.py
+      - datos/intermedio/construido.parquet
+      - datos/crudo
+    params:
+      - integracion
+      - datos.archivo_mapping
+    outs:
+      - datos/intermedio/integrado.parquet
+    metrics:
+      - reportes/e3/integracion.json:
+          cache: false
+
+  formatear:
+    desc: "3.5 formatear · docs/decisiones/0006-particion.md (tipos, roles y diccionario)"
+    cmd: python -m p09.datos.formatear
+    deps:
+      - src/p09/datos/formatear.py
+      - src/p09/datos/comun.py
+      - datos/intermedio/integrado.parquet
+    params:
+      - seleccion.columnas_auditoria
+    outs:
+      - datos/final/tabla_modelado.parquet
+      - docs/diccionario/diccionario_datos.csv:
+          cache: false
+    metrics:
+      - reportes/e3/esquema.json:
+          cache: false
+
+  particionar:
+    desc: "partición agrupada por paciente (diseño de prueba adelantado) · docs/decisiones/0006-particion.md"
+    cmd: python -m p09.datos.particionar
+    deps:
+      - src/p09/datos/particionar.py
+      - datos/final/tabla_modelado.parquet
+    params:
+      - particion
+    outs:
+      - datos/particion/train.parquet
+      - datos/particion/test.parquet
+    metrics:
+      - reportes/e3/particion.json:
+          cache: false

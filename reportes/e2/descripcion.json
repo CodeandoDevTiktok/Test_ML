@@ -1,0 +1,27 @@
+{
+  "archivo_crudo": "datos/crudo/diabetic_data.parquet",
+  "archivo_mapping": "datos/crudo/IDS_mapping.csv",
+  "columnas": 50,
+  "crudo_version": "crudo-v1",
+  "distribucion_objetivo_pct": {
+    "<30": 11.16,
+    ">30": 34.928,
+    "NO": 53.912
+  },
+  "filas": 101766,
+  "filas_cohorte": 100114,
+  "filas_fallecimiento": 1652,
+  "fuente": "Diabetes 130-US Hospitals 1999-2008 (UCI, dataset 296)",
+  "md5_crudo": "d0a88b3109b252270a5801bd1fc55f12",
+  "md5_mapping": "e17b3b3ffa348d0a47a9bb3c92b218b3",
+  "n_categoricas": 40,
+  "n_numericas": 8,
+  "objetivo": "readmitted",
+  "origen_mapping": "https://drive.google.com/uc?export=download&id=136U7krs2lICcTFURWN2bxHJSwJ8NP771",
+  "origen_parquet": "https://drive.google.com/uc?export=download&id=122SIHS0YFXUi6K1x2D2cVP_iOLtk9oZT",
+  "pacientes_unicos": 71518,
+  "prevalencia_lt30_pct": 11.16,
+  "tiene_fecha": false,
+  "tiene_hospital": false,
+  "unidad_analisis": "episodio hospitalario (encounter_id)"
+}

@@ -1,0 +1,95 @@
+# =============================================================================
+#  params.yaml — las DECISIONES del proyecto, fuera del código.
+#  Cada bloque cita la entrada de la bitácora (docs/decisiones/) que lo justifica.
+#  Cambiar un valor aquí => `dvc repro` recalcula solo lo que depende de él.
+# =============================================================================
+
+datos:
+  archivo_crudo: "datos/crudo/diabetic_data.parquet"
+  archivo_mapping: "datos/crudo/IDS_mapping.csv"
+  id_episodio: "encounter_id"
+  id_paciente: "patient_nbr"
+  columna_resultado: "readmitted"
+  valor_positivo: "<30"
+
+# --- 3.1 Seleccionar · decisiones/0001-elegibilidad y 0002-columnas ----------
+seleccion:
+  # discharge_disposition_id: 11, 19, 20, 21 = fallecimiento (E1 salida 9, E2)
+  disposiciones_fallecimiento: [11, 19, 20, 21]
+  # 13, 14 = hospicio. E1 lo deja "a revisar"; se excluye por no ser accionable.
+  excluir_hospicio: true
+  disposiciones_hospicio: [13, 14]
+  # 7 = alta voluntaria (AMA). E1: población distinta; se separa.
+  excluir_alta_voluntaria: true
+  disposiciones_alta_voluntaria: [7]
+  # gender = Unknown/Invalid (3 filas en E2): dato inválido
+  excluir_genero_invalido: true
+  # Columnas que NO entran como predictoras
+  columnas_descartadas:
+    - weight            # 96,86 % faltante (E2) > umbral Kelleher 50 %
+    - examide           # cardinalidad 1 (constante)
+    - citoglipton       # cardinalidad 1 (constante)
+  # Columnas que se conservan SOLO para auditoría de equidad (E1: raza no predictora)
+  columnas_auditoria: [race]
+
+# --- 3.2 Limpiar · decisiones/0003-faltantes --------------------------------
+limpieza:
+  token_faltante: "Desconocido"
+  # Kelleher: >50 % faltante => NO imputar; se crea categoría explícita
+  umbral_no_imputar: 0.50
+  # max_glu_serum / A1Cresult: la ausencia significa "no medido" (señal de proceso)
+  columnas_ausencia_informativa: [max_glu_serum, A1Cresult, medical_specialty, payer_code]
+  # Códigos administrativos sin significado -> "Desconocido"
+  admission_type_desconocido: [5, 6, 8]
+  admission_source_desconocido: [9, 15, 17, 20, 21]
+  discharge_desconocido: [18, 25, 26]
+  # Atípicos: se REGISTRAN (IQR) pero no se recortan (E2: valores válidos)
+  regla_atipicos_iqr: 1.5
+  recortar_atipicos: false
+
+# --- 3.3 Construir · decisiones/0004-variables-derivadas ----------------------
+construccion:
+  # Señal clínica de la consulta (E1): >=4 hospitalizaciones previas en el año
+  umbral_hospitalizaciones_previas: 4
+  agrupar_diagnosticos: true          # CIE-9 -> grupos clínicos (src/p09/datos/cie9.py)
+  top_especialidades: 10              # el resto -> "Otra"
+
+# --- 3.4 Integrar · decisiones/0005-integracion -----------------------------
+integracion:
+  usar_descripciones_mapping: true
+  # Agregados por paciente: NO (sin fechas => contar episodios futuros = fuga)
+  agregados_por_paciente: false
+
+# --- 3.5 Formatear + partición · decisiones/0006-particion ------------------
+particion:
+  proporcion_prueba: 0.20
+  semilla: 42
+  agrupar_por: "patient_nbr"          # nunca el mismo paciente en train y test
+
+# --- 4 Modelado · decisiones/0007-diseno-prueba y 0008-optuna ----------------
+modelado:
+  semilla: 42
+  n_folds: 5                          # StratifiedGroupKFold sobre train
+  # E1: discharge_disposition como predictor requiere evaluación temporal/clínica
+  usar_disposicion_alta: false
+  algoritmos: [logistica, random_forest, hist_gb]
+  optuna:
+    n_trials: 40                      # por algoritmo (subir a 100 en el servidor)
+    timeout_segundos: 1800
+    sampler: "tpe"
+    pruner: "median"
+    metrica_objetivo: "recall_at_k"   # métrica primaria declarada en E1 (antes de entrenar)
+
+# --- 5 Evaluación · decisiones/0009-criterios-evaluacion --------------------
+evaluacion:
+  # K = capacidad expresada como fracción de altas elegibles priorizadas.
+  # 20 pacientes/turno de 6 h (E1). Sin cupos semanales confirmados: 10 %.
+  k_fraccion: 0.10
+  k_sensibilidad: [0.05, 0.10, 0.20]
+  mejora_minima_vs_baseline: 0.10     # +10 % relativo de Recall@K (E1 salida 10)
+  aucpr_min_vs_prevalencia: 1.5       # AUCPR >= 1,5 x prevalencia
+  brecha_max_sensibilidad_pp: 10      # equidad entre grupos con n suficiente
+  n_min_grupo: 500
+  bootstrap_iteraciones: 500
+  calibracion: "isotonic"             # isotonic | sigmoid
+  grupos_auditoria: [gender, grupo_edad, race]

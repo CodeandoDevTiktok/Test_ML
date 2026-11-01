@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "p09"
+version = "0.3.0"
+description = "P09 · Reingreso hospitalario <30 días en pacientes con diabetes (CRISP-DM E3–E5)"
+requires-python = ">=3.10"
+dependencies = []   # el entorno lo fija environment.yml / requirements.txt
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

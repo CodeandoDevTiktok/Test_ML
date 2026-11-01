@@ -1,0 +1,51 @@
+# =============================================================================
+#  proyecto.yaml — ÚNICA fuente de verdad de la infraestructura del proyecto
+#  (se versiona en Git; NO contiene secretos: esos van en .env)
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+#  >>> VARIABLE GLOBAL DE GITHUB <<<
+#  Cambie SOLO esta línea con la URL de su repositorio. Todo lo demás
+#  (git remote, publicar, CI, etiquetas de procedencia en MLflow) la lee de aquí.
+#  Acepta HTTPS (https://github.com/ORG/REPO.git) o SSH (git@github.com:ORG/REPO.git)
+# -----------------------------------------------------------------------------
+github:
+  url: "https://github.com/CodeandoDevTiktok/Proyecto_Machine_Learning.git"
+  rama: "master"
+
+proyecto:
+  codigo: "P09"
+  nombre: "Reingreso hospitalario <30 días en pacientes con diabetes"
+  equipo: "Grupo 2 · UTEC Proyecto Integrador I"
+
+# -----------------------------------------------------------------------------
+#  MinIO (S3 compatible). OJO: el puerto 9001 es la CONSOLA web;
+#  la API S3 que usan DVC y boto3 suele ser el 9000.
+# -----------------------------------------------------------------------------
+minio:
+  endpoint: "http://208.68.37.250:9000"
+  consola: "http://208.68.37.250:9001"
+  bucket: "p09-reingreso"
+  # Organización dentro del bucket:
+  #   p09-reingreso/dvc-store/                 <- remoto DVC (por huella md5)
+  #   p09-reingreso/datasets/<capa>/<tag>/     <- copias legibles por versión
+  #   p09-reingreso/datasets/CATALOGO.json     <- índice de versiones
+  prefijo_dvc: "dvc-store"
+  prefijo_datasets: "datasets"
+  nombre_remoto_dvc: "minio"
+
+# -----------------------------------------------------------------------------
+#  MLflow (servidor compartido del piloto)
+# -----------------------------------------------------------------------------
+mlflow:
+  tracking_uri: "http://208.68.37.250:5000"
+  experimento: "p09-reingreso-diabetes"
+  modelo_registrado: "p09-reingreso-30d"
+  alias_campeon: "campeon"
+
+# -----------------------------------------------------------------------------
+#  Fuentes originales del crudo (las mismas del notebook E2, Google Drive)
+# -----------------------------------------------------------------------------
+fuentes:
+  parquet: "https://drive.google.com/uc?export=download&id=122SIHS0YFXUi6K1x2D2cVP_iOLtk9oZT"
+  ids_mapping: "https://drive.google.com/uc?export=download&id=136U7krs2lICcTFURWN2bxHJSwJ8NP771"

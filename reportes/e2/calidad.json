@@ -1,0 +1,168 @@
+{
+  "atipicos_iqr": {
+    "num_lab_procedures": {
+      "n": 143,
+      "pct": 0.141
+    },
+    "num_medications": {
+      "n": 2557,
+      "pct": 2.513
+    },
+    "num_procedures": {
+      "n": 4954,
+      "pct": 4.868
+    },
+    "number_diagnoses": {
+      "n": 281,
+      "pct": 0.276
+    },
+    "number_emergency": {
+      "n": 11383,
+      "pct": 11.185
+    },
+    "number_inpatient": {
+      "n": 7049,
+      "pct": 6.927
+    },
+    "number_outpatient": {
+      "n": 16739,
+      "pct": 16.449
+    },
+    "time_in_hospital": {
+      "n": 2252,
+      "pct": 2.213
+    }
+  },
+  "celdas_faltantes": 374017,
+  "codigos_especiales": [
+    {
+      "codigo": 9,
+      "descripcion": "Not Available",
+      "n": 125,
+      "pct": 0.123,
+      "variable": "admission_source_id"
+    },
+    {
+      "codigo": 15,
+      "descripcion": "Not Available",
+      "n": 0,
+      "pct": 0.0,
+      "variable": "admission_source_id"
+    },
+    {
+      "codigo": 17,
+      "descripcion": "NULL",
+      "n": 6781,
+      "pct": 6.663,
+      "variable": "admission_source_id"
+    },
+    {
+      "codigo": 20,
+      "descripcion": "Not Mapped",
+      "n": 161,
+      "pct": 0.158,
+      "variable": "admission_source_id"
+    },
+    {
+      "codigo": 21,
+      "descripcion": "Unknown/Invalid",
+      "n": 0,
+      "pct": 0.0,
+      "variable": "admission_source_id"
+    },
+    {
+      "codigo": 5,
+      "descripcion": "Not Available",
+      "n": 4785,
+      "pct": 4.702,
+      "variable": "admission_type_id"
+    },
+    {
+      "codigo": 6,
+      "descripcion": "NULL",
+      "n": 5291,
+      "pct": 5.199,
+      "variable": "admission_type_id"
+    },
+    {
+      "codigo": 8,
+      "descripcion": "Not Mapped",
+      "n": 320,
+      "pct": 0.314,
+      "variable": "admission_type_id"
+    },
+    {
+      "codigo": 11,
+      "descripcion": "Expired",
+      "n": 1642,
+      "pct": 1.614,
+      "variable": "discharge_disposition_id"
+    },
+    {
+      "codigo": 18,
+      "descripcion": "NULL",
+      "n": 3691,
+      "pct": 3.627,
+      "variable": "discharge_disposition_id"
+    },
+    {
+      "codigo": 19,
+      "descripcion": "Expired at home. Medicaid only, hospice.",
+      "n": 8,
+      "pct": 0.008,
+      "variable": "discharge_disposition_id"
+    },
+    {
+      "codigo": 20,
+      "descripcion": "Expired in a medical facility. Medicaid only, hospice.",
+      "n": 2,
+      "pct": 0.002,
+      "variable": "discharge_disposition_id"
+    },
+    {
+      "codigo": 21,
+      "descripcion": "Expired, place unknown. Medicaid only, hospice.",
+      "n": 0,
+      "pct": 0.0,
+      "variable": "discharge_disposition_id"
+    },
+    {
+      "codigo": 25,
+      "descripcion": "Not Mapped",
+      "n": 989,
+      "pct": 0.972,
+      "variable": "discharge_disposition_id"
+    },
+    {
+      "codigo": 26,
+      "descripcion": "Unknown/Invalid",
+      "n": 0,
+      "pct": 0.0,
+      "variable": "discharge_disposition_id"
+    }
+  ],
+  "constantes": [
+    "examide",
+    "citoglipton"
+  ],
+  "duplicados": {
+    "encounter_id_repetido": 0,
+    "filas_de_pacientes_repetidos": 47021,
+    "filas_exactas_duplicadas": 0,
+    "pacientes_con_más_de_un_episodio": 16773
+  },
+  "faltantes_pct": {
+    "A1Cresult": 83.277,
+    "diag_1": 0.021,
+    "diag_2": 0.352,
+    "diag_3": 1.398,
+    "max_glu_serum": 94.747,
+    "medical_specialty": 49.082,
+    "payer_code": 39.557,
+    "race": 2.234,
+    "weight": 96.858
+  },
+  "genero_invalido": 3,
+  "literal_none": 0,
+  "pct_celdas_faltantes": 7.351
+}
