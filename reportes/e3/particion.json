@@ -1,0 +1,10 @@
+{
+  "n_test": 19803,
+  "n_train": 78914,
+  "pacientes_solapados": 0,
+  "pacientes_test": 13920,
+  "pacientes_train": 55743,
+  "pct_test": 20.06,
+  "prevalencia_test_pct": 11.362,
+  "prevalencia_train_pct": 11.372
+}

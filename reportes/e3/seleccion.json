@@ -1,0 +1,41 @@
+{
+  "columnas_crudo": 50,
+  "columnas_descartadas": [
+    "weight",
+    "examide",
+    "citoglipton"
+  ],
+  "columnas_resultantes": 47,
+  "contrato_e2": {
+    "filas_e2": 101766,
+    "md5_crudo": "d0a88b3109b252270a5801bd1fc55f12",
+    "verificado": true
+  },
+  "exclusiones": {
+    "alta_voluntaria": {
+      "filas": 623,
+      "pct_crudo": 0.612,
+      "tasa_lt30_en_excluidas": 14.446
+    },
+    "fallecimiento": {
+      "filas": 1652,
+      "pct_crudo": 1.623,
+      "tasa_lt30_en_excluidas": 0.0
+    },
+    "genero_invalido": {
+      "filas": 3,
+      "pct_crudo": 0.003,
+      "tasa_lt30_en_excluidas": 0.0
+    },
+    "hospicio": {
+      "filas": 771,
+      "pct_crudo": 0.758,
+      "tasa_lt30_en_excluidas": 5.577
+    }
+  },
+  "filas_crudo": 101766,
+  "filas_seleccionadas": 98717,
+  "pacientes_unicos": 69663,
+  "pct_conservado": 97.004,
+  "prevalencia_lt30_pct": 11.37
+}

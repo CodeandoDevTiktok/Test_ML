@@ -13,3 +13,4 @@ Una entrada por decisión. Cada etapa de `dvc.yaml` cita su entrada en `desc`, c
 - [0008-optuna](0008-optuna.md) · Optimización de hiperparámetros con Optuna
 - [0009-criterios-evaluacion](0009-criterios-evaluacion.md) · Criterios de evaluación y elección del campeón (E5)
 - [0010-contrato-e2-e3](0010-contrato-e2-e3.md) · Contrato E2 → E3
+- [0011-trazabilidad-e3](0011-trazabilidad-e3.md) · Cierre trazable de E3

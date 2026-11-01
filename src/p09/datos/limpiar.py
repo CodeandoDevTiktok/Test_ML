@@ -32,7 +32,7 @@ def main() -> None:
     # 1 · Ausencia informativa: no se imputa con moda/mediana
     for c in lim["columnas_ausencia_informativa"]:
         if c in df.columns:
-            token = "No medido" if c in ("max_glu_serum", "A1Cresult") else lim["token_faltante"]
+            token = lim["token_no_medido"] if c in lim["columnas_no_medido"] else lim["token_faltante"]
             n = int(df[c].isna().sum())
             df[c] = df[c].fillna(token).astype("string")
             acciones[c] = {"faltantes": n, "accion": f"categoria '{token}'",

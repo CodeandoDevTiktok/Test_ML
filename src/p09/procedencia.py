@@ -35,11 +35,19 @@ def _md5_desde_lock(ruta_salida: str) -> tuple[str, str]:
 
 
 def _md5_crudo() -> str:
-    puntero = RAIZ / "datos" / "crudo.dvc"
-    if not puntero.exists():
-        return "sin-puntero"
-    d = yaml.safe_load(puntero.read_text(encoding="utf-8"))
-    return d["outs"][0].get("md5", "?")
+    # El crudo puede estar registrado como carpeta (datos/crudo.dvc) o archivo por
+    # archivo (datos/crudo/<archivo>.dvc, lo que hace E2). Se aceptan ambos.
+    candidatos = [RAIZ / "datos" / "crudo.dvc"]
+    try:
+        params = yaml.safe_load((RAIZ / "params.yaml").read_text(encoding="utf-8")) or {}
+        candidatos.append(RAIZ / (params["datos"]["archivo_crudo"] + ".dvc"))
+    except Exception:
+        candidatos.append(RAIZ / "datos" / "crudo" / "diabetic_data.parquet.dvc")
+    for puntero in candidatos:
+        if puntero.exists():
+            d = yaml.safe_load(puntero.read_text(encoding="utf-8"))
+            return d["outs"][0].get("md5", "?")
+    return "sin-puntero"
 
 
 def _vinculo_e2() -> tuple[str, str]:
