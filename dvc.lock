@@ -35,7 +35,7 @@ stages:
           - 19
           - 20
           - 21
-          excluir_hospicio: true
+          excluir_hospicio: false
           disposiciones_hospicio:
           - 13
           - 14
@@ -54,19 +54,19 @@ stages:
     outs:
     - path: datos/intermedio/seleccionado.parquet
       hash: md5
-      md5: 42425fb48d43457743642101b0dc4b5a
-      size: 2632520
+      md5: d7947d4d9d4f9d7bb771405410e5b3c9
+      size: 2655984
     - path: reportes/e3/seleccion.json
       hash: md5
-      md5: f969f08d35214d388589dc885d01016f
-      size: 881
+      md5: d899886d27ccd0319fbad54839b91668
+      size: 773
   limpiar:
     cmd: python -m p09.datos.limpiar
     deps:
     - path: datos/intermedio/seleccionado.parquet
       hash: md5
-      md5: 42425fb48d43457743642101b0dc4b5a
-      size: 2632520
+      md5: d7947d4d9d4f9d7bb771405410e5b3c9
+      size: 2655984
     - path: reportes/e2/calidad.json
       hash: md5
       md5: 9ffbc9351c2f080392f9a528aead9806
@@ -123,19 +123,19 @@ stages:
     outs:
     - path: datos/intermedio/limpio.parquet
       hash: md5
-      md5: f0ac822656296ed28e6891c474cb7082
-      size: 2646636
+      md5: 8a98623df842e78978c16ea9aa85f245
+      size: 2670294
     - path: reportes/e3/limpieza.json
       hash: md5
-      md5: f8aae7d320c509ef56cf230e3a9fea83
-      size: 6129
+      md5: 00f4a1d00e0dab53d365dbb5dc03fe12
+      size: 6120
   construir:
     cmd: python -m p09.datos.construir
     deps:
     - path: datos/intermedio/limpio.parquet
       hash: md5
-      md5: f0ac822656296ed28e6891c474cb7082
-      size: 2646636
+      md5: 8a98623df842e78978c16ea9aa85f245
+      size: 2670294
     - path: src/p09/datos/cie9.py
       hash: md5
       md5: 77e0fd1718c10651320e78baafa662fb
@@ -163,12 +163,12 @@ stages:
     outs:
     - path: datos/intermedio/construido.parquet
       hash: md5
-      md5: 2a1fff6a2447aa12b2260e2f000d33fe
-      size: 3120005
+      md5: a5c917bcf45a54cbfec46a11069cc93b
+      size: 3147223
     - path: reportes/e3/construccion.json
       hash: md5
-      md5: 01361ea90fd16484aec198930720eee4
-      size: 1443
+      md5: 5139b2bb0fbca2153ab2f0ce72dab744
+      size: 1447
   integrar:
     cmd: python -m p09.datos.integrar
     deps:
@@ -179,8 +179,8 @@ stages:
       nfiles: 5
     - path: datos/intermedio/construido.parquet
       hash: md5
-      md5: 2a1fff6a2447aa12b2260e2f000d33fe
-      size: 3120005
+      md5: a5c917bcf45a54cbfec46a11069cc93b
+      size: 3147223
     - path: src/p09/datos/comun.py
       hash: md5
       md5: 758c15ae06a79961739d6ae29944d24d
@@ -198,19 +198,19 @@ stages:
     outs:
     - path: datos/intermedio/integrado.parquet
       hash: md5
-      md5: f5f32dde564faa2b0f63899e5e699e13
-      size: 3231210
+      md5: c75cad699a9ce23ef2e646d8e55354ac
+      size: 3259326
     - path: reportes/e3/integracion.json
       hash: md5
-      md5: 4dbb971ba7d9763c389d15e80e4c7c52
-      size: 982
+      md5: e7e59c6a5f11bb2f9a0084ee5c0eeb53
+      size: 983
   formatear:
     cmd: python -m p09.datos.formatear
     deps:
     - path: datos/intermedio/integrado.parquet
       hash: md5
-      md5: f5f32dde564faa2b0f63899e5e699e13
-      size: 3231210
+      md5: c75cad699a9ce23ef2e646d8e55354ac
+      size: 3259326
     - path: src/p09/datos/comun.py
       hash: md5
       md5: 758c15ae06a79961739d6ae29944d24d
@@ -226,23 +226,23 @@ stages:
     outs:
     - path: datos/final/tabla_modelado.parquet
       hash: md5
-      md5: 2d1fddc0b6f935f0d6a26a275441a4fc
-      size: 3228233
+      md5: 27e120642fdc725afd3def3d03c3afd3
+      size: 3256070
     - path: docs/diccionario/diccionario_datos.csv
       hash: md5
-      md5: 88643c473e05c29e21972d561f755789
+      md5: eee4a247c2aad8c56e5ec5faa76d2854
       size: 6478
     - path: reportes/e3/esquema.json
       hash: md5
-      md5: 7ae8cf98a44a4ed3833f540551b46fad
+      md5: 97f09939365a2b3589fee40050a34109
       size: 1540
   particionar:
     cmd: python -m p09.datos.particionar
     deps:
     - path: datos/final/tabla_modelado.parquet
       hash: md5
-      md5: 2d1fddc0b6f935f0d6a26a275441a4fc
-      size: 3228233
+      md5: 27e120642fdc725afd3def3d03c3afd3
+      size: 3256070
     - path: src/p09/datos/particionar.py
       hash: md5
       md5: f4870df5114de465c4ad20147bab4ca9
@@ -256,13 +256,13 @@ stages:
     outs:
     - path: datos/particion/test.parquet
       hash: md5
-      md5: cf52b9481181d0b5c6a5c2f943987c80
-      size: 684659
+      md5: 9f6caf3b56d182e41fe08e05b0fb439b
+      size: 686284
     - path: datos/particion/train.parquet
       hash: md5
-      md5: 5fac2bc0425cc9ac5a8d95faf0ff8b25
-      size: 2593209
+      md5: ffb4f2ca009d4b62e22b0b7c7f595993
+      size: 2615575
     - path: reportes/e3/particion.json
       hash: md5
-      md5: 62ddce39b07230b792f10275d20ad69b
+      md5: c06c78d98c0fabf27e2f605439d771b6
       size: 214
