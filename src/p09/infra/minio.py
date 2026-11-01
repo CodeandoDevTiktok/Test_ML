@@ -32,6 +32,8 @@ CAPAS = {
     "eda": ["reportes/e2/descripcion.json", "reportes/e2/calidad.json", "reportes/e2/hallazgos.json",
             "reportes/e2/plan_calidad.json", "reportes/e2/esquema_e2.csv",
             "reportes/e2/representatividad.csv", "reportes/e2/mlflow_run.json"],
+    "intermedio": ["datos/intermedio/seleccionado.parquet", "datos/intermedio/limpio.parquet",
+                   "datos/intermedio/construido.parquet", "datos/intermedio/integrado.parquet"],
     "final": ["datos/final/tabla_modelado.parquet", "docs/diccionario/diccionario_datos.csv"],
     "particion": ["datos/particion/train.parquet", "datos/particion/test.parquet"],
     "reportes": ["reportes/e3/seleccion.json", "reportes/e3/limpieza.json",
@@ -78,7 +80,7 @@ def _filas(p: Path) -> int | None:
 
 
 CAPAS_E2 = ["crudo", "eda"]
-CAPAS_E3 = ["final", "particion", "reportes"]
+CAPAS_E3 = ["intermedio", "final", "particion", "reportes"]
 
 
 def publicar_snapshot(tag: str, capas: list[str] | None = None) -> dict:
@@ -101,7 +103,11 @@ def publicar_snapshot(tag: str, capas: list[str] | None = None) -> dict:
             s3.upload_file(str(local), MINIO_BUCKET, clave,
                            ExtraArgs={"Metadata": {"md5": md5, "tag": tag, "origen": rel}})
             manifiesto["archivos"].append({"capa": capa, "ruta_repo": rel, "clave_s3": clave,
-                                           "md5": md5, "bytes": local.stat().st_size,
+                                           "md5": md5,
+                                           # objeto en dvc-store/ (solo lo que gestiona DVC: datos/...)
+                                           "clave_dvc_store": (f"{CFG['minio']['prefijo_dvc']}/files/md5/{md5[:2]}/{md5[2:]}"
+                                                               if rel.startswith("datos/") else None),
+                                           "bytes": local.stat().st_size,
                                            "filas": _filas(local)})
             print(f"  ↑ s3://{MINIO_BUCKET}/{clave}")
     s3.put_object(Bucket=MINIO_BUCKET, Key=f"{pref}/manifiestos/{tag}.json",

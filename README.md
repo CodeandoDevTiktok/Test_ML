@@ -154,12 +154,21 @@ s3://p09-reingreso/
     ├── manifiestos/<tag>.json              <- md5, bytes, filas y procedencia de cada archivo
     ├── crudo/crudo-vN/                     <- diabetic_data.parquet, IDS_mapping.csv   (E2)
     ├── eda/crudo-vN/                       <- informe E2: json, csv, figuras, mlflow_run.json (E2)
+    ├── intermedio/datos-vN/                <- seleccionado, limpio, construido, integrado (E3)
     ├── final/datos-vN/                     <- tabla_modelado.parquet, diccionario_datos.csv
     ├── particion/datos-vN/                 <- train.parquet, test.parquet
     └── reportes/datos-vN/                  <- informes de E3 de esa versión
 ```
 
 Para volver a cualquier versión: `git checkout datos-v1 && dvc checkout`.
+
+`dvc-store/` nombra cada objeto por su huella md5 (no está cifrado: así lo exige el versionado por contenido). Para ver qué nombre corresponde a cada huella, sin descargar nada:
+
+```bash
+dvc list https://github.com/CodeandoDevTiktok/Test_ML datos --rev datos-v1 -R --dvc-only --show-hash --size
+```
+
+El objeto está en `dvc-store/files/md5/<2 primeros caracteres>/<resto>`. Cada manifiesto de `datasets/manifiestos/` trae ese enlace en `clave_dvc_store`.
 La API S3 está en `:9000`; el `:9001` es la consola web. Si su servidor usa otro puerto, ajuste `minio.endpoint` en `proyecto.yaml`.
 
 ## 7 · MLflow: vocabulario acordado (no cambiar)
