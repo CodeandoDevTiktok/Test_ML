@@ -18,6 +18,7 @@ La versión anterior de la tabla se conserva (su etiqueta y sus objetos en `dvc-
 - Asunto (issue) de GitHub: pendiente de asignar
 
 ## Consecuencias
+
 Medido por el pipeline frente a `datos-v1`:
 
 - episodios elegibles: 98,717 → 99,488
@@ -25,5 +26,6 @@ Medido por el pipeline frente a `datos-v1`:
 - pacientes únicos: 69,663 → 70,113
 - filas de train: 78,914 → 79,620
 - filas de test: 19,803 → 19,868
+
 
 La nueva tabla se publica como `datos-v2`. Evidencia: `reportes/e3/seleccion.json` y `reportes/e3/particion.json` de cada etiqueta.
