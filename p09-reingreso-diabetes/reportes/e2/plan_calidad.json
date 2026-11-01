@@ -1,0 +1,34 @@
+{
+  "plan": [
+    {
+      "etapa_que_resuelve": "E3 3.1/3.2",
+      "problema": "ausencia alta y categorías agrupadas",
+      "siguiente paso": "indicador de ausencia y revisión clínica; no imputar automáticamente",
+      "variable": "weight / resultados de laboratorio"
+    },
+    {
+      "etapa_que_resuelve": "E3 3.5 + auditoría E5",
+      "problema": "cobertura diferencial",
+      "siguiente paso": "auditar representación y uso ético",
+      "variable": "medical_specialty / payer_code / race"
+    },
+    {
+      "etapa_que_resuelve": "E3 3.3",
+      "problema": "faltantes y alta cardinalidad",
+      "siguiente paso": "agrupar solo con aprobación clínica",
+      "variable": "diag_1, diag_2, diag_3"
+    },
+    {
+      "etapa_que_resuelve": "E3 partición + CV E4",
+      "problema": "episodios repetidos por paciente",
+      "siguiente paso": "particiones agrupadas; no deduplicar raw",
+      "variable": "patient_nbr"
+    },
+    {
+      "etapa_que_resuelve": "E3 3.2",
+      "problema": "ceros y valores fuera de IQR",
+      "siguiente paso": "conservar y revisar antes de transformar",
+      "variable": "magnitudes numéricas"
+    }
+  ]
+}
