@@ -1,10 +1,10 @@
 {
-  "n_test": 19803,
-  "n_train": 78914,
+  "n_test": 19868,
+  "n_train": 79620,
   "pacientes_solapados": 0,
-  "pacientes_test": 13920,
-  "pacientes_train": 55743,
-  "pct_test": 20.06,
-  "prevalencia_test_pct": 11.362,
-  "prevalencia_train_pct": 11.372
+  "pacientes_test": 14044,
+  "pacientes_train": 56069,
+  "pct_test": 19.97,
+  "prevalencia_test_pct": 10.937,
+  "prevalencia_train_pct": 11.422
 }
