@@ -1,9 +1,0 @@
-{
-  "crudo_version": "crudo-v1",
-  "experiment_id": "29",
-  "experimento": "p09-reingreso-diabetes",
-  "md5_crudo": "d0a88b3109b252270a5801bd1fc55f12",
-  "run_id": "acb06054b54e44e2810a07003bcb6686",
-  "tracking_uri": "http://208.68.37.250:5000",
-  "url": "http://208.68.37.250:5000/#/experiments/29/runs/acb06054b54e44e2810a07003bcb6686"
-}

@@ -1,0 +1,5 @@
+outs:
+- md5: d0a88b3109b252270a5801bd1fc55f12
+  size: 2740284
+  hash: md5
+  path: diabetic_data.parquet

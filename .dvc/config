@@ -1,0 +1,6 @@
+[core]
+    remote = minio
+['remote "minio"']
+    url = s3://p09-reingreso/dvc-store
+    endpointurl = http://208.68.37.250:9000
+    region = us-east-1
