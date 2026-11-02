@@ -44,7 +44,8 @@ def trials_version(version: str) -> pd.DataFrame:
         experiment_ids=[exp.experiment_id],
         # filtro por IGUALDAD (una etiqueta ausente no satisface '!=')
         filter_string=(f"attributes.status = 'FINISHED' and tags.tipo = 'trial' "
-                       f"and tags.estado = 'completo' and tags.version_datos = '{version}'"),
+                       f"and tags.estado = 'completo' and tags.version_datos = '{version}' "
+                       f"and tags.datos_md5_train = '{procedencia()['datos_md5_train']}'"),
         order_by=["metrics.cv_recall_at_k_media DESC"],
         max_results=5000,
     )
@@ -118,6 +119,7 @@ def main(argv=None) -> dict:
     ap = argparse.ArgumentParser()
     ap.add_argument("--sin-registro", action="store_true", help="no registra en Model Registry")
     ap.add_argument("--sin-importancia", action="store_true")
+    ap.add_argument("--justificacion", default="", help="por qué se evalúa esta versión de datos")
     a = ap.parse_args(argv)
 
     ev = PARAMS["evaluacion"]
@@ -177,9 +179,14 @@ def main(argv=None) -> dict:
             "valor": round(brecha, 2), "umbral": ev["brecha_max_sensibilidad_pp"],
             "cumple": bool(brecha <= ev["brecha_max_sensibilidad_pp"])},
     }
-    veredicto = ("CUMPLE" if all(c["cumple"] for c in criterios.values()) else
-                 "CUMPLE CON MITIGACIONES" if criterios["C2_aucpr_1_5x_prevalencia"]["cumple"] else
-                 "NO CUMPLE: renegociar alcance")
+    # C1 es el criterio PRIMARIO de negocio (E1, salida 10): si no se cumple, no hay «cumple»,
+    # ni siquiera «con mitigaciones». Las mitigaciones solo cubren fallos de C3 (calibración) o C4 (equidad).
+    fallidos = [n for n, c in criterios.items() if not c["cumple"]]
+    c1 = criterios["C1_recall_at_k_supera_mejor_baseline_10pct"]["cumple"]
+    c2 = criterios["C2_aucpr_1_5x_prevalencia"]["cumple"]
+    veredicto = ("CUMPLE" if not fallidos else
+                 "CUMPLE CON MITIGACIONES" if c1 and c2 else
+                 "NO CUMPLE")
 
     # Traducción al negocio: por cada 100 altas elegibles
     prev = float(yte.mean())
@@ -217,7 +224,7 @@ def main(argv=None) -> dict:
     resultado = {"version_datos": version, "campeon": {"algoritmo": alg, "hp": hp, "run_origen": campeon["run_id"],
                  "cv_recall_at_k": float(campeon["metrics.cv_recall_at_k_media"])},
                  "k_fraccion": k, "test": metricas, "sensibilidad_k": sens_k, "ic95_bootstrap": ic,
-                 "criterios": criterios, "veredicto": veredicto, "negocio_por_100_altas": negocio,
+                 "criterios": criterios, "criterios_fallidos": fallidos, "veredicto": veredicto, "negocio_por_100_altas": negocio,
                  "brecha_sensibilidad_pp": brecha, "procedencia": proc}
     (carpeta / "evaluacion.json").write_text(json.dumps(resultado, indent=2, default=str), encoding="utf-8")
     _resumen_md(resultado, carpeta / "resumen_evaluacion.md")
@@ -230,6 +237,8 @@ def main(argv=None) -> dict:
         mlflow.log_metrics({f"test_{m}": v for m, v in metricas["campeon_calibrado"].items()})
         mlflow.log_metrics({f"test_{m}": v for m, v in {**sens_k, **ic}.items()})
         mlflow.log_metric("test_brecha_sensibilidad_pp", brecha)
+        mlflow.set_tags({"criterios_fallidos": ",".join(fallidos) or "ninguno",
+                         "justificacion_version": a.justificacion[:4000]})
         for b in BASELINES:
             mlflow.log_metric(f"test_{b}_recall_at_k", metricas[b]["recall_at_k"])
         ds = mlflow.data.from_pandas(te_df.head(1000), source="datos/particion/test.parquet",
@@ -259,6 +268,10 @@ def main(argv=None) -> dict:
             cli.set_registered_model_alias(MODELO_REGISTRADO, ALIAS_CAMPEON, version_modelo)
             cli.set_model_version_tag(MODELO_REGISTRADO, version_modelo, "veredicto", veredicto)
             cli.set_model_version_tag(MODELO_REGISTRADO, version_modelo, "version_datos", version)
+            for clave_, valor_ in {"datos_md5_train": proc["datos_md5_train"], "git_commit": proc["git_commit"],
+                                   "criterios_fallidos": ",".join(fallidos) or "ninguno",
+                                   "justificacion": a.justificacion[:4000]}.items():
+                cli.set_model_version_tag(MODELO_REGISTRADO, version_modelo, clave_, valor_)
             print(f"[E5] registrado {MODELO_REGISTRADO} v{version_modelo} @{ALIAS_CAMPEON}")
 
     _reporte_final(version, carpeta)
@@ -270,7 +283,8 @@ def _reporte_final(version: str, carpeta) -> None:
     """El reporte también es una ejecución (guía S04, paso 14)."""
     exp = mlflow.get_experiment_by_name(EXPERIMENTO)
     todos = mlflow.search_runs([exp.experiment_id], max_results=5000,
-                               filter_string=f"tags.version_datos = '{version}' and tags.tipo = 'trial'")
+                               filter_string=(f"tags.version_datos = '{version}' and tags.tipo = 'trial' "
+                                              f"and tags.datos_md5_train = '{procedencia()['datos_md5_train']}'"))
     cols = [c for c in ["run_id", "tags.mlflow.runName", "tags.algoritmo", "tags.estado",
                         "metrics.cv_recall_at_k_media", "metrics.cv_aucpr_media", "metrics.cv_roc_auc_media",
                         "metrics.cv_brier_media"] if c in todos.columns]
@@ -290,7 +304,8 @@ def _resumen_md(r: dict, destino) -> None:
     t = r["test"]["campeon_calibrado"]
     lin = [f"# Resumen de evaluación (E5) · datos {r['version_datos']}", "",
            f"**Campeón:** `{r['campeon']['algoritmo']}` · recall@K CV = {r['campeon']['cv_recall_at_k']:.4f}",
-           f"**Veredicto:** {r['veredicto']}", "",
+           f"**Veredicto:** {r['veredicto']}",
+           f"**Criterios no cumplidos:** {', '.join(r.get('criterios_fallidos', [])) or 'ninguno'}", "",
            "| Modelo (test) | Recall@K | Precision@K | AUCPR | ROC-AUC |", "|---|---:|---:|---:|---:|"]
     for n, m in r["test"].items():
         lin.append(f"| {n} | {m['recall_at_k']:.4f} | {m['precision_at_k']:.4f} | {m['aucpr']:.4f} | {m['roc_auc']:.4f} |")
