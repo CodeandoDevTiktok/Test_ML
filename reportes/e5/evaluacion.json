@@ -1,0 +1,147 @@
+{
+  "version_datos": "v1",
+  "campeon": {
+    "algoritmo": "hist_gb",
+    "hp": {
+      "min_samples_leaf": 72,
+      "min_frequency": 50,
+      "class_weight": null,
+      "max_iter": 150,
+      "l2_regularization": 0.004796130393075818,
+      "max_leaf_nodes": 27,
+      "learning_rate": 0.03675953455302772
+    },
+    "run_origen": "7d5abd20ed874f85979ed03e6d781fa3",
+    "cv_recall_at_k": 0.21665849205161405
+  },
+  "k_fraccion": 0.1,
+  "test": {
+    "campeon_calibrado": {
+      "recall_at_k": 0.2111111111111111,
+      "precision_at_k": 0.2397778899545684,
+      "aucpr": 0.20130492118299317,
+      "roc_auc": 0.6521859637795375,
+      "prevalencia": 0.1136191486138464,
+      "lift_at_k": 2.1103651354534745,
+      "aucpr_sobre_prevalencia": 1.7717517129719171,
+      "brier": 0.09725974634684521,
+      "cal_pendiente": 0.9701740140605783,
+      "cal_intercepto": -0.07006247927009471
+    },
+    "campeon_sin_calibrar": {
+      "recall_at_k": 0.21022222222222223,
+      "precision_at_k": 0.23876829883897022,
+      "aucpr": 0.20105449533068237,
+      "roc_auc": 0.6525005158978838,
+      "prevalencia": 0.1136191486138464,
+      "lift_at_k": 2.1014793875147233,
+      "aucpr_sobre_prevalencia": 1.7695476315704457,
+      "brier": 0.0972546268812207,
+      "cal_pendiente": 1.0108227700644052,
+      "cal_intercepto": 0.01095022389002599
+    },
+    "b0_prevalencia": {
+      "recall_at_k": 0.1,
+      "precision_at_k": 0.11357900050479555,
+      "aucpr": 0.1136191486138464,
+      "roc_auc": 0.5,
+      "prevalencia": 0.1136191486138464,
+      "lift_at_k": 0.9996466431095405,
+      "aucpr_sobre_prevalencia": 1.0,
+      "brier": 0.10070984759891885,
+      "cal_pendiente": 0.8088565450904256,
+      "cal_intercepto": -0.39392884307984544
+    },
+    "b1_logistica": {
+      "recall_at_k": 0.20444444444444446,
+      "precision_at_k": 0.23220595658758203,
+      "aucpr": 0.19702499756345587,
+      "roc_auc": 0.6377975781284617,
+      "prevalencia": 0.1136191486138464,
+      "lift_at_k": 2.0437220259128384,
+      "aucpr_sobre_prevalencia": 1.7340826785551628,
+      "brier": 0.09783460352587563,
+      "cal_pendiente": 0.8903088825249492,
+      "cal_intercepto": -0.2240472689812532
+    },
+    "b2_regla": {
+      "recall_at_k": 0.204,
+      "precision_at_k": 0.23170116102978294,
+      "aucpr": 0.1803590951289586,
+      "roc_auc": 0.6095261335510864,
+      "prevalencia": 0.1136191486138464,
+      "lift_at_k": 2.0392791519434628,
+      "aucpr_sobre_prevalencia": 1.5874005159283409
+    }
+  },
+  "sensibilidad_k": {
+    "recall_at_k_5": 0.12755555555555556,
+    "recall_at_k_10": 0.2111111111111111,
+    "recall_at_k_20": 0.3542222222222222
+  },
+  "ic95_bootstrap": {
+    "recall_at_k_ic_inf": 0.19274458513407638,
+    "recall_at_k_ic_sup": 0.23112064885331954,
+    "precision_at_k_ic_inf": 0.21733310093473798,
+    "precision_at_k_ic_sup": 0.26692815157900224,
+    "aucpr_ic_inf": 0.18400026192084715,
+    "aucpr_ic_sup": 0.22363768772572706,
+    "roc_auc_ic_inf": 0.6395232395857429,
+    "roc_auc_ic_sup": 0.6653488232897384
+  },
+  "criterios": {
+    "C1_recall_at_k_supera_mejor_baseline_10pct": {
+      "valor": 0.2111,
+      "referencia": "b1_logistica=0.2044",
+      "mejora_relativa": 0.0326,
+      "cumple": false
+    },
+    "C2_aucpr_1_5x_prevalencia": {
+      "valor": 1.772,
+      "umbral": 1.5,
+      "cumple": true
+    },
+    "C3_calibracion_no_peor_que_B1": {
+      "brier_campeon": 0.09726,
+      "brier_b1": 0.09783,
+      "pendiente": 0.97,
+      "cumple": true
+    },
+    "C4_brecha_sensibilidad_pp": {
+      "valor": 29.15,
+      "umbral": 10,
+      "cumple": false
+    }
+  },
+  "criterios_fallidos": [
+    "C1_recall_at_k_supera_mejor_baseline_10pct",
+    "C4_brecha_sensibilidad_pp"
+  ],
+  "veredicto": "NO CUMPLE",
+  "negocio_por_100_altas": {
+    "altas": 100,
+    "cupos_K": 10.0,
+    "reingresos_esperados": 11.36,
+    "capturados_campeon": 2.4,
+    "capturados_mejor_baseline": 2.32,
+    "capturados_azar": 1.14,
+    "reingresos_adicionales_vs_baseline": 0.08
+  },
+  "brecha_sensibilidad_pp": 29.151971363899566,
+  "procedencia": {
+    "crudo_version": "crudo-v1",
+    "run_eda": "acb06054b54e44e2810a07003bcb6686",
+    "md5_archivo_crudo": "d0a88b3109b252270a5801bd1fc55f12",
+    "datos_md5_crudo": "d0a88b3109b252270a5801bd1fc55f12",
+    "datos_md5_final": "2d1fddc0b6f935f0d6a26a275441a4fc",
+    "datos_md5_train": "5fac2bc0425cc9ac5a8d95faf0ff8b25",
+    "datos_md5_test": "cf52b9481181d0b5c6a5c2f943987c80",
+    "datos_bytes_train": "2593209",
+    "datos_bytes_test": "684659",
+    "version_datos": "v1",
+    "git_commit": "f9d485b",
+    "git_tag": "datos-v1-1-gf9d485b",
+    "git_limpio": "si",
+    "github_url": "https://github.com/CodeandoDevTiktok/Test_ML.git"
+  }
+}

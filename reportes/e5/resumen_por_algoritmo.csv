@@ -1,0 +1,4 @@
+tags.algoritmo,count,mean,max
+hist_gb,8,0.2067,0.2167
+logistica,15,0.2094,0.2105
+random_forest,7,0.2159,0.2188
